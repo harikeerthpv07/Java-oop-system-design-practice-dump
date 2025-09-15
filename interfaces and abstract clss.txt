@@ -1,0 +1,58 @@
+public class Main {
+    public static void main(String[] args) {
+        Employee[] emps = {
+            new Manager("Ravi", 10000),
+            new Developer("Hari", 1000),
+            new Intern("Shiva", 100)
+        };
+
+        for (Employee e : emps) {
+            e.printMessage(); // comes from Payable
+            System.out.println("Employee: " + e.name + ", Pay: " + e.calculatePay());
+        }
+    }
+}
+
+interface Payable{
+    double calculatePay();
+    default void printMessage() {
+        System.out.println("Pay calculation in progress...");
+    }
+}
+
+abstract class Employee implements Payable{
+    String name;
+    double salary;
+
+    Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+}
+
+class Manager extends Employee {
+    Manager(String name, double salary) {
+        super(name, salary);
+    }
+    public double calculatePay() {
+        return salary + (salary * 0.2);
+    }
+}
+
+class Developer extends Employee {
+    Developer(String name, double salary) {
+        super(name, salary);
+    }
+    public double calculatePay() {
+        return salary + (salary * 0.15);
+    }
+}
+
+class Intern extends Employee {
+    Intern(String name, double salary) {
+        super(name, salary);
+    }
+    public double calculatePay() {
+        return salary + (salary * 0.05);
+    }
+}
